@@ -26,7 +26,7 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    brooklyn_99_quotes = [
+    botanswerhi = [
         'I\'m the human form of the 💯 emoji.',
         'Bingpot!',
         (
@@ -36,7 +36,7 @@ async def on_message(message):
     ]
 
     if message.content == 'hi':
-        response = random.choice(brooklyn_99_quotes)
+        response = random.choice(botanswerhi)
         await message.channel.send(response)
 @client.event
 async def on_message(message):
