@@ -51,9 +51,18 @@ async def on_message(message):
             'Awesome!'
         ),
     ]
-
+    gamesevents = [
+        'Orcacon',
+        'CES',
+        'Otakufest'
+        
     if message.content == 'how are you bot?':
         response = random.choice(hru)
         await message.channel.send(response) 
 
+        if message.content == 'games events ':
+        response = random.choice(gamesevents)
+        await message.channel.send(response) 
+        
+        
 client.run(TOKEN)
