@@ -51,9 +51,18 @@ async def on_message(message):
             'Awesome!'
         ),
     ]
-
+  
+newgame = [
+       'Cyberpunk 2077',
+       'Ghostrunner',
+       'Immortal fennix rising',
+       'Star wars squadrons',
+         ]
     if message.content == 'how are you bot?':
         response = random.choice(hru)
         await message.channel.send(response) 
+    if message.content == 'new games arrival in 2020' :
+        response = random.choice(newgame)
+        await message.channel.send(response)
 
 client.run(TOKEN)
