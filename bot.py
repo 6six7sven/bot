@@ -54,7 +54,8 @@ async def on_message(message):
     gamesevents = [
         'Orcacon',
         'CES',
-        'Otakufest'
+        'Otakufest',
+    ]
         
     if message.content == 'how are you bot?':
         response = random.choice(hru)
