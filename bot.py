@@ -6,6 +6,7 @@ import json
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
+from replit import db
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -14,11 +15,28 @@ GUILD = os.getenv('DISCORD_GUILD')
 client = discord.Client()
 bot = commands.Bot(command_prefix='!')
 
+if "responding" not in db.keys():
+    db["responding"] = True
+
 def get_quote():
     response = requests.get("https://zenquotes.io/api/random")
     json_data = json.loads(response.text)
     quote  = json_data[0]['q'] + " -" + json_data[0]['a']
     return(quote)
+
+def update_encouragements(encouraging_message):
+    if "encouragements" in db.keys():
+        encouragements = db["encouragements"]
+        encouragements.append(encouraging_message)
+        db["encouragements"] = encouragements
+    else:
+        db["encouragements"] = [encouraging_message]
+
+def delete_encouragment(index):
+    encouragements = db["encouragements"]
+    if len(encouragements) > index:
+        del encouragements[index]
+        db["encouragements"] = encouragements
 
 @client.event
 async def on_ready():
@@ -107,35 +125,82 @@ async def on_message(message):
     if message.content == 'this bot is so lame':
         response = random.choice(lamebot)
         await message.channel.send(response) 
+
     if message.content == 'want to play ludo?':
         response = random.choice(ludooffer)
         await message.channel.send(response) 
+
     if message.content == 'tell me about ps5':
         response = random.choice(ps5info)
-        await message.channel.send(response)    
+        await message.channel.send(response)  
+
     if message.content == 'among us new update':
         response = random.choice(amongusinfo)
         await message.channel.send(response) 
+
     if message.content == 'faug trailer release date':
         response = random.choice(fauginfo)
         await message.channel.send(response) 
+
     if message.content == 'games events ':
         response = random.choice(gamesevents)
         await message.channel.send(response) 
+
     if message.content == 'how are you bot?':
         response = random.choice(hru)
         await message.channel.send(response)
+
     if message.content == 'hi bot':
         response = random.choice(hi)
         await message.channel.send(response)
+
     if message.content == 'who made you bot?':
         response = random.choice(creator)
         await message.channel.send(response)
+
     if message.content.startswith('!inspire'):
         quote = get_quote()
         await message.channel.send(quote)
+
     if any(word in message.content for word in sad_words):
         await message.channel.send(random.choice(starter_encouragements))
+
+    if db["responding"]:
+        options = starter_encouragements
+        if "encouragements" in db.keys():
+            options = options + db["encouragements"]
+
+    if any(word in msg for word in sad_words):
+        await message.channel.send(random.choice(options))
+
+    if msg.startswith("$new"):
+        encouraging_message = msg.split("$new ",1)[1]
+        update_encouragements(encouraging_message)
+        await message.channel.send("New encouraging message added.")
+
+    if msg.startswith("$del"):
+        encouragements = []
+    if "encouragements" in db.keys():
+        index = int(msg.split("$del",1)[1])
+        delete_encouragment(index)
+        encouragements = db["encouragements"]
+    await message.channel.send(encouragements)
+
+    if msg.startswith("$list"):
+        encouragements = []
+    if "encouragements" in db.keys():
+        encouragements = db["encouragements"]
+    await message.channel.send(encouragements)
+
+    if msg.startswith("$responding"):
+        value = msg.split("$responding ",1)[1]
+
+    if value.lower() == "true":
+      db["responding"] = True
+      await message.channel.send("Responding is on.")
+    else:
+      db["responding"] = False
+      await message.channel.send("Responding is off.")
 
 @bot.command(name='99', help='Responds with a random quote from Brooklyn 99')
 async def nine_nine(ctx):
