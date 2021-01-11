@@ -196,11 +196,11 @@ async def on_message(message):
         value = msg.split("$responding ",1)[1]
 
     if value.lower() == "true":
-      db["responding"] = True
-      await message.channel.send("Responding is on.")
+        db["responding"] = True
+        await message.channel.send("Responding is on.")
     else:
-      db["responding"] = False
-      await message.channel.send("Responding is off.")
+        db["responding"] = False
+        await message.channel.send("Responding is off.")
 
 @bot.command(name='99', help='Responds with a random quote from Brooklyn 99')
 async def nine_nine(ctx):
