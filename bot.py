@@ -1,7 +1,8 @@
 # bot.py
 import os
 import random
-
+import requests
+import json
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
@@ -12,6 +13,12 @@ GUILD = os.getenv('DISCORD_GUILD')
 
 client = discord.Client()
 bot = commands.Bot(command_prefix='!')
+
+def get_quote():
+    response = requests.get("https://zenquotes.io/api/random")
+    json_data = json.loads(response.text)
+    quote  = json_data[0]['q'] + " -" + json_data[0]['a']
+    return(quote)
 
 @client.event
 async def on_ready():
@@ -73,19 +80,19 @@ async def on_message(message):
             'IEM',
          ),
     ]
-     fauginfo = [
+    fauginfo = [
         'On 26 January , this year',
         'Very soon',
     ]
-     amongusinfo = [
+    amongusinfo = [
         'New update will be havying some antihacking perks ',
         'New update will remove many bugs',
     ]
-     ps5info = [
+    ps5info = [
         'It is the first playstation with an internal SSD ',
         'It has a large heat dissipater vent',
     ]
-     ludooffer = [
+    ludooffer = [
         'I could, if I had some Artificial Intelligence also ',
         'Go ahead, you play and enjoy',
     ]
@@ -121,6 +128,9 @@ async def on_message(message):
     if message.content == 'who made you bot?':
         response = random.choice(creator)
         await message.channel.send(response)
+    if message.content.startswith('!inspire'):
+        quote = get_quote()
+        await message.channel.send(quote)
 
 @bot.command(name='99', help='Responds with a random quote from Brooklyn 99')
 async def nine_nine(ctx):
