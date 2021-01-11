@@ -46,6 +46,7 @@ async def on_ready():
 async def on_message(message):
     if message.author == client.user:
         return
+    msg = message.content
 
     hru = [
         'Running optimally',
@@ -101,6 +102,8 @@ async def on_message(message):
         'You tell me how to become so cool like you',
         'Let me see if you can teach me something to overcome this',
     ]
+    sad_words = ["sad", "depressed", "unhappy", "angry", "miserable", "depressing"]
+    starter_encouragements = ["cheer up!", "hang in there!", "you are a great person! - bot."]
     if message.content == 'this bot is so lame':
         response = random.choice(lamebot)
         await message.channel.send(response) 
@@ -113,7 +116,7 @@ async def on_message(message):
     if message.content == 'among us new update':
         response = random.choice(amongusinfo)
         await message.channel.send(response) 
-    if message.content == 'faug trailer release date ':
+    if message.content == 'faug trailer release date':
         response = random.choice(fauginfo)
         await message.channel.send(response) 
     if message.content == 'games events ':
@@ -131,6 +134,8 @@ async def on_message(message):
     if message.content.startswith('!inspire'):
         quote = get_quote()
         await message.channel.send(quote)
+    if any(word in message.content for word in sad_words):
+        await message.channel.send(random.choice(starter_encouragements))
 
 @bot.command(name='99', help='Responds with a random quote from Brooklyn 99')
 async def nine_nine(ctx):
