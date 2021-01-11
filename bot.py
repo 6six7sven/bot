@@ -64,10 +64,14 @@ async def on_message(message):
             'Right...'
         ),
     ]
-     gamesevents = [
+    gamesevents = [
         'Orcacon',
         'CES',
         'Otakufest',
+        (
+            'CES', 
+            'IEM',
+         ),
     ]
 
     if message.content == 'games events ':
