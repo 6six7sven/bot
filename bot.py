@@ -69,7 +69,42 @@ async def on_message(message):
         'CES',
         'Otakufest',
     ]
-
+     fauginfo = [
+        'On 26 January , this year',
+        'Very soon',
+    ]
+     amongusinfo = [
+        'New update will be havying some antihacking perks ',
+        'New update will remove many bugs',
+    ]
+     ps5info = [
+        'It is the first playstation with an internal SSD ',
+        'It has a large heat dissipater vent',
+    ]
+     ludooffer = [
+        'I could, if I had some Artificial Intelligence also ',
+        'Go ahead, you play and enjoy',
+    ]
+    lamebot = [
+        'Oh so you think that I am lame ',
+        'You tell me how to become so cool like you',
+        'Let me see if you can teach me something to overcome this',
+    ]
+    if message.content == 'this bot is so lame':
+        response = random.choice(lamebot)
+        await message.channel.send(response) 
+    if message.content == 'want to play ludo?':
+        response = random.choice(ludooffer)
+        await message.channel.send(response) 
+    if message.content == 'tell me about ps5':
+        response = random.choice(ps5info)
+        await message.channel.send(response)    
+    if message.content == 'among us new update':
+        response = random.choice(amongusinfo)
+        await message.channel.send(response) 
+    if message.content == 'faug trailer release date ':
+        response = random.choice(fauginfo)
+        await message.channel.send(response) 
     if message.content == 'games events ':
         response = random.choice(gamesevents)
         await message.channel.send(response) 
