@@ -160,7 +160,7 @@ async def on_message(message):
         await message.channel.send(random.choice(starter_ga))
     if any (word in message.content for word in greetev):
         await message.channel.send(random.choice(starter_ev))
-    if any (word in message.content for word in greetga):
+    if any (word in message.content for word in greetgn):
         await message.channel.send(random.choice(starter_gn))
     
         
