@@ -1,11 +1,11 @@
 # bot.py
 import os
-import random
-import requests
 import json
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
+import random
+import requests
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -105,7 +105,7 @@ async def on_message(message):
     happy_words = ["happy", "grateful", "lovely"]
     starter_appreciators = ["great to see you happy!", "thats really nice!"]
     creators = ["!creators"]
-    starter_creators = ["Aryaman", "Guneet", "Sushant", "Punit", "Neeraj", "Ayush"]
+    starter_creators = ['Aryaman', 'Guneet', 'Sushant', 'Punit', 'Neeraj', 'Ayush', 'Chris']
     sad_words = ["sad", "depressed", "unhappy", "angry", "miserable", "depressing"]
     starter_encouragements = ["cheer up!", "hang in there!", "you are a great person! - bot."]
     greetgm = ["good morning"]
@@ -150,7 +150,7 @@ async def on_message(message):
         await message.channel.send(random.choice(starter_encouragements))
     if any(word in message.content for word in happy_words):
         await message.channel.send(random.choice(starter_appreciators))
-    if any(word in message.content for word in creator):
+    if any(word in message.content for word in creators):
         await message.channel.send(starter_creators)
     if any(word in message.content for word in greetgm):
         await message.channel.send(random.choice(starter_gm))
