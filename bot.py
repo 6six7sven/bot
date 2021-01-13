@@ -102,8 +102,20 @@ async def on_message(message):
         'You tell me how to become so cool like you',
         'Let me see if you can teach me something to overcome this',
     ]
+    happy_words = ["happy", "grateful", "lovely"]
+    starter_appreciators = ["great to see you happy!", "thats really nice!"]
+    creators = ["!creators"]
+    starter_creators = ["Aryaman", "Guneet", "Sushant", "Punit", "Neeraj", "Ayush"]
     sad_words = ["sad", "depressed", "unhappy", "angry", "miserable", "depressing"]
     starter_encouragements = ["cheer up!", "hang in there!", "you are a great person! - bot."]
+    greetgm = ["good morning"]
+    starter_gm = ["Good morning", "A very good morning", "A good morning to you"]
+    greetgn = ["good night"]
+    starter_gn = ["Good night", "sweet dreams!", "A good night to you"]
+    greetga = ["good afternoon"]
+    starter_ga =  ["Good afternoon", "A very good afternoon", "A good afternoon to you"]
+    greetev = ["good evening"]
+    starter_ev = ["Good evening", "A very good evening", "A good evening to you"]
     if message.content == 'this bot is so lame':
         response = random.choice(lamebot)
         await message.channel.send(response) 
@@ -136,6 +148,21 @@ async def on_message(message):
         await message.channel.send(quote)
     if any(word in message.content for word in sad_words):
         await message.channel.send(random.choice(starter_encouragements))
+    if any(word in message.content for word in happy_words):
+        await message.channel.send(random.choice(starter_appreciators))
+    if any(word in message.content for word in creator):
+        await message.channel.send(starter_creators)
+    if any(word in message.content for word in greetgm):
+        await message.channel.send(random.choice(starter_gm))
+        print({client.user.name})
+    if any (word in message.content for word in greetga):
+        await message.channel.send(random.choice(starter_ga))
+    if any (word in message.content for word in greetev):
+        await message.channel.send(random.choice(starter_ev))
+    if any (word in message.content for word in greetga):
+        await message.channel.send(random.choice(starter_gn))
+    
+        
 
 @bot.command(name='99', help='Responds with a random quote from Brooklyn 99')
 async def nine_nine(ctx):
